@@ -1,24 +1,9 @@
 import com.ewerk.gradle.plugins.querydsl.QuerydslPluginExtension
 
-// TODO: Remove
-buildscript {
-  repositories {
-    mavenLocal()
-    mavenCentral()
-  }
-
-  dependencies {
-    classpath("com.ewerk.gradle.plugins:querydsl-plugin:2.0.0-SNAPSHOT")
-  }
-}
-
 plugins {
   java
-//  id("com.ewerk.gradle.plugins.querydsl") version "2.0.0-SNAPSHOT-bm"
+  id("com.ewerk.gradle.plugins.querydsl") version "2.0.0-SNAPSHOT"
 }
-
-// TODO: Remove
-apply(plugin="com.ewerk.gradle.plugins.querydsl")
 
 repositories {
   mavenCentral()
@@ -36,8 +21,7 @@ dependencies {
 //  annotationProcessor("com.querydsl:querydsl-apt:4.2.1")
 }
 
-//querydsl {
-configure<QuerydslPluginExtension> {
+querydsl {
   isJpa = true
 }
 //}
@@ -45,16 +29,4 @@ configure<QuerydslPluginExtension> {
 project.configurations.named("annotationProcessor") {
   val compileOnly by project.configurations
   extendsFrom(compileOnly)
-}
-
-sourceSets.named("main") {
-  println(this.java.outputDir)
-}
-
-tasks.withType<JavaCompile> {
-  println("$name -> ${outputs.files.files}")
-  println("apt-source: ${options.annotationProcessorGeneratedSourcesDirectory}")
-//  classpath.forEach {
-//    println("$name cp -> $it")
-//  }
 }
